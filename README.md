@@ -55,6 +55,7 @@ De acuerdo con lo requerido por el dueño de producto, se definieron los siguien
 ## Requisitos No Funcionales
 ### Lenguajes y Frameworks
 El sistema se construirá sobre la arquitectura de microservicios. Se han definido los siguientes microservicios, lenguajes y frameworks:
+
 | Microservicio     | Lenguaje | Framework |
 | --------------- | ----------- | ----- |
 | Gestión de Usuarios     | JavaScript   | Express.js |
@@ -64,6 +65,7 @@ El sistema se construirá sobre la arquitectura de microservicios. Se han defini
 | Gestión de Chat | JavaScript | Node.js |
 
 El sistema también cuenta con una interfaz de usuario, y un API Gateway que junta las APIs de los microservicios individuales y se comunica con la interfaz de usuario:
+
 | Elemento | Lenguajes | Framework |
 | ----- | ----- | ----- |
 | Interfaz gráfica (Front End) | JavaScript, HTML y CSS | React |
@@ -89,7 +91,9 @@ El sistema también cuenta con una interfaz de usuario, y un API Gateway que jun
 ## Diseño arquitectónico con descripción por vista
 ### Vista de descomposición
 Diagrama que evidencia las funcionalidades de la solución de software, es decir, lo que el sistema debe proporcionar a los usuarios.
+
 ![Vista de descomposición](https://cdn.discordapp.com/attachments/532072055190061069/674012910460076044/Descomposicion.png)
+
 - Módulo de Usuarios: Módulo que gestiona toda la lógica relacionada con la gestión de los perfiles de usuario. El módulo contiene los siguientes submódulos:
 	- Administración de cuentas de usuario: Submódulo que permite la creación, eliminación y actualización de usuarios.
 	- Consulta Usuario: Submódulo que permite la consulta de un usuario por medio del identificador único generado al crear el registro. 
@@ -105,9 +109,12 @@ Diagrama que evidencia las funcionalidades de la solución de software, es decir
 	- Envío Mensaje: Submódulo que permite el envío de un mensaje instantáneo a otro usuario. 
 	- Consulta Mensaje: Submódulo que permite consultar los mensajes de un usuario. 
 	- Eliminar Conversación: Submódulo que permite eliminar toda una conversación con otro usuario.
+	
 ### Vista de capas
 El diagrama presenta la forma en la que se organizan los subsistemas por medio de una jerarquía que está representada por capas. Cada capa proporciona una interfaz que le permite interactuar con otras capas.
+
 ![Vista de capas](https://cdn.discordapp.com/attachments/532072055190061069/674015224055201815/Capas.png)
+
 Niveles: 
 - Presentación: Nivel en el que se sitúan las capas encargadas de la presentación de la información y la interacción con el usuario. Posee un balanceador de carga. 
 - Lógica de negocio: Nivel que contiene todas las capas relacionadas con el manejo de los datos de acuerdo a la lógica del negocio y tomándolos de la capa inferior para posteriormente presentarlos al usuario. Posee seis balanceadores de carga, uno entre la capa de presentación y el API Gateway, y cinco para cada uno de los cinco microservicios. 
@@ -127,7 +134,9 @@ Capas:
 - Database: Capa que contiene los datos.
 
 ### Vista de componentes y conectores
+
 ![Vista de componentes y conectores](https://cdn.discordapp.com/attachments/532072055190061069/674012967645347860/Compcon.PNG)
+
 Componentes:
 - wa-lb: Balanceador de carga de la aplicación web. 
 - teamlinked-wa: Componente encargado de interactuar con el usuario final. 
@@ -153,6 +162,7 @@ Conectores:
 
 ### Vista de despliegue
 Diagrama que describe la disposición física de los componentes de software, en el que cada un de dichos componentes se despliega en un entorno de ejecución particular. A continuación se muestran cuatro diagramas, uno por nodo, puesto que los nodos no están duplicados totalmente, y hay diferencias en los microservicios duplicados.
+
 ![Nodo 1](https://cdn.discordapp.com/attachments/532072055190061069/674016625825021984/deploynode1.png)
 
 ![Nodo 2](https://cdn.discordapp.com/attachments/532072055190061069/674016630996598814/deploynode2.png)
@@ -173,18 +183,25 @@ Entorno:
 ### Vistas de modelos de datos
 #### Microservicio: Gestión de Usuarios
 El modelo está compuesto por seis entidades. La primera, usuarios, contiene toda la información del perfil del usuario. Está relacionada con otra entidad tags, que contiene todas las etiquetas; producto de esta relación muchos a muchos, deriva usuarios_to_tags. Además tiene otra entidad, organizaciones, que maneja la información de las organizaciones y se relaciona con las entidades usuarios y tags; debido a esto, da lugar a nuevas entidades usuarios_organizaciones y organizaciones_tags
+
 ![usuarios](https://cdn.discordapp.com/attachments/532072055190061069/674018014068342803/usuarios.PNG)
 
 #### Microservicio: Gestión de Ofertas de Empleo
-El modelo está compuesto por tres entidades. La entidad usuarios, solo tiene el id del usuario y con base en eso, se gestionan los datos de este microservicio. Otra entidad llamada ofertas-empleo contiene toda la información de la oferta. Se hace necesaria una entidad intermedia para las aplicaciones, dicha entidad es ofertasEmpleo_Aplicadas.![ofertas](https://cdn.discordapp.com/attachments/532072055190061069/674018012617113600/ofertas.PNG)
+El modelo está compuesto por tres entidades. La entidad usuarios, solo tiene el id del usuario y con base en eso, se gestionan los datos de este microservicio. Otra entidad llamada ofertas-empleo contiene toda la información de la oferta. Se hace necesaria una entidad intermedia para las aplicaciones, dicha entidad es ofertasEmpleo_Aplicadas.
+
+![ofertas](https://cdn.discordapp.com/attachments/532072055190061069/674018012617113600/ofertas.PNG)
 
 #### Microservicio: Gestión de Redes de Contacto
 Modelo de base no relacional. Una sola tabla contiene las etiquetas por medio de las cuales se realizan las recomendaciones y asociaciones.
+
 ![red](https://cdn.discordapp.com/attachments/532072055190061069/674018008854691840/red.PNG)
 
 #### Microservicio: Gestión de Foros
 Modelo de tres entidades. Una entidad Usuario que solo tiene el id del mismo. Publicaciones, que contiene todos los datos del foro o publicación y una entidad intermedia para los comentarios.
+
 ![foros](https://cdn.discordapp.com/attachments/532072055190061069/674018016102580234/foros.PNG)
+
 #### Microservicio: Gestión de Chat.
 Base de datos no relacional. Una sola tabla con toda la información necesaria.
+
 ![chat](https://cdn.discordapp.com/attachments/532072055190061069/674018015037358081/chat.PNG)
